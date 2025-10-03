@@ -4,12 +4,13 @@ services:
     container_name: mysql8_dev
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: appdb
-      MYSQL_USER: appuser
-      MYSQL_PASSWORD: apppass
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-appdb}
+      MYSQL_USER: ${MYSQL_USER:-appuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_HOST: "%"
     ports:
-      - "3307:3306"   # host:container  <-- LIST item (note the dash)
+      - "${HOST_MYSQL_PORT:-3307}:3306"   # host:container  <-- LIST item (note the dash)
     volumes:
       - mysql_data:/var/lib/mysql
 
